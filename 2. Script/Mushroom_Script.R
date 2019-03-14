@@ -135,3 +135,16 @@ checking_set %>%
 # PUUURFECT! I'M ALIVE
 ############################################
 
+load("c50_predict_MUSHROOM.rda")
+
+#import the Mushrooms dataset
+mushrooms_validation <- read.csv("C:\\Users\\Javier Villasmil\\Desktop\\Ubiqum\\Task 011 - Mushroom\\data_test13_validation.csv")
+
+TEST_prediction_c50  <- predict(c50_caret,mushrooms_validation)
+TEST_performance_c50 <- postResample(TEST_prediction_c50,mushrooms_validation$class)
+confusionMatrix(TEST_prediction_c50, mushrooms_validation$class)
+
+mushrooms_validation$class.PREDICTED <- TEST_prediction_c50
+
+write.csv(mushrooms_validation, file = "Mushroom_prediction.csv")
+
